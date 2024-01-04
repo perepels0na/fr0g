@@ -1,5 +1,5 @@
 body {
-background-color: #b78968;
+background-color: #a88266;
 }
 p>b{
 color:rgba(248, 249, 243, 0.789);
@@ -13,8 +13,8 @@ table, th, td {
   border: 2px solid rgb(186, 77, 18);
   border-collapse: collapse;
   background-color: rgba(203, 183, 110, 0.789);
-  height: 76px;
-  width: 85px;
+  height: 77px;
+  width: 86px;
   margin: 24px 34px 30px 45px;
 }
 Div{
