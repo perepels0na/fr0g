@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "d426fc08-5ce3-40f0-b9f5-09ea1a183187",
+		"name": "Cities of Ukraine Tkachenko",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31725391",
+		"_collection_link": "https://galactic-shuttle-32174.postman.co/workspace/New-Team-Workspace~99fcc665-8e28-4ee7-aba6-da9197df5186/collection/31725391-d426fc08-5ce3-40f0-b9f5-09ea1a183187?action=share&source=collection_link&creator=31725391"
+	},
+	"item": [
+		{
+			"name": "All cities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"response must be valid and have a body\", function () {\r",
+							"     pm.response.to.be.nested;\r",
+							"     pm.response.to.be.withBody;\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n    getAllCities{\r\n        id\r\n        name\r\n        square\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{link}}",
+					"host": [
+						"{{link}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All cities with description",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"square\");\r",
+							"  //я розумію шо цей ТК буде фейл, все іде за планом :)\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query{\r\n    getAllCities{\r\n        id\r\n        name\r\n... on City{\r\n        description\r\n    }\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{link}}",
+					"host": [
+						"{{link}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get city by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"square\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query{\r\n    getCityById(id:13){\r\n        name\r\n        square\r\n        ...on City{\r\n            description\r\n        }\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{link}}",
+					"host": [
+						"{{link}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Range of cities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"square\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query{\r\n    getCityByRangeId(filter:{minId:1,maxId:11}){\r\n        id\r\n        name\r\n        square \r\n        ...on City{\r\n            description\r\n        }\r\n    }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{link}}",
+					"host": [
+						"{{link}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Description with fragment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query{\r\n    f1rst:getCityById(id:11){\r\n        ...CityDescription\r\n    }\r\n  sec0nd:getCityById(id:7){\r\n    ...CityDescription\r\n  }\r\n   th1ird:getCityById(id:13){\r\n    ...CityDescription\r\n  }\r\n   f0urth:getCityById(id:25){\r\n    ...CityDescription\r\n  }\r\n    }\r\n    fragment CityDescription on City{\r\n        description\r\n    }\r\n\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{link}}",
+					"host": [
+						"{{link}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"square\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation($name: String!, $square: Float!, $description: String!) {\r\n  addCity(\r\n    name: $name\r\n    square: $square\r\n    description: $description\r\n  ) {\r\n    id\r\n    name\r\n    square\r\n    ... on City {\r\n      description\r\n    }\r\n  }\r\n}",
+						"variables": "{\r\n  \"name\":\"{{$randomCity}}\",\r\n  \"square\": \"{{$randomInt}}\",\r\n  \"description\": \"{{$randomLoremSentence}}\"\r\n}"
+					}
+				},
+				"url": {
+					"raw": "{{link}}",
+					"host": [
+						"{{link}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "City upgrade",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"square\");\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"description\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\r\n    updateCity(id:13,name:\"Odessa-mama\", square:163,description:\"Одесса стоит на разветвленной сети катакомб, протяженностью около 2 500 километров\"){\r\n   id\r\n    name\r\n    square\r\n    ...on City{\r\n        description\r\n    }\r\n}\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{link}}",
+					"host": [
+						"{{link}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete city",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 500s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(350);\r",
+							"});\r",
+							"pm.test(\"Body contains string\",() => {\r",
+							"  pm.expect(pm.response.text()).to.include(\"deleteCity\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\r\n    deleteCity(id:25)\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "{{link}}",
+					"host": [
+						"{{link}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "link",
+			"value": "https://graphql-ukrainian-cities.hillel.it/graphql",
+			"type": "string"
+		}
+	]
+}
